@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact | Loan Status Prediction</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        body { align-items: flex-start; }
+
+        .contact-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 40px 20px;
+        }
+
+        .contact-title {
+            font-size: 40px;
+            margin-bottom: 50px;
+            background: linear-gradient(90deg, cyan, #00ff99);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeDown 1s ease;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cards {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            width: 320px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0,255,255,0.25);
+            cursor: pointer;
+            transition: 0.4s;
+            animation: fadeUp 1.2s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 45px rgba(0,255,255,0.6);
+        }
+
+        .card h2 {
+            color: cyan;
+            margin-bottom: 10px;
+        }
+
+        /* CTA TEXT */
+        .more {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #00ffcc;
+            opacity: 0.85;
+            animation: blink 1.6s infinite;
+        }
+
+        @keyframes blink {
+            0%   { opacity: 0.4; }
+            50%  { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        /* POPUP */
+        .popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-box {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(18px);
+            padding: 35px;
+            border-radius: 25px;
+            width: 360px;
+            text-align: center;
+            animation: zoomIn 0.5s ease;
+            box-shadow: 0 0 50px rgba(0,255,255,0.5);
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .popup-box h2 {
+            color: cyan;
+            margin-bottom: 15px;
+        }
+
+        .popup-box p {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(90deg, cyan, #00ff99);
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .footer-text {
+            margin-top: 50px;
+            max-width: 900px;
+            text-align: center;
+            opacity: 0.85;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contact-wrapper">
+
+    <h1 class="contact-title">Team & Credits</h1>
+
+    <div class="cards">
+        <!-- SHIVAM CARD -->
+        <div class="card" onclick="openPopup('systemPopup')">
+            <h2>🚀 AI System Engineering</h2>
+            <p>Bias Mitigation & Platform Development</p>
+            <p class="more">Click here for more details ➜</p>
+        </div>
+
+        <!-- HARSH CARD -->
+        <div class="card" onclick="openPopup('modelPopup')">
+            <h2>🧠 ML Model Development</h2>
+            <p>Core Algorithm Design</p>
+            <p class="more">Click here for more details ➜</p>
+        </div>
+    </div>
+
+    <div class="footer-text">
+        <p>
+            This project combines an initial machine learning model
+            with advanced bias correction, evaluation, and a full-stack
+            AI deployment platform.
+        </p>
+        <a href="/"><button style="margin-top:20px;">Home</button></a>
+    </div>
+
+</div>
+
+<!-- System Engineer Popup -->
+<div class="popup" id="systemPopup">
+    <div class="popup-box">
+        <h2>Shivam Singh</h2>
+        <p><b>Role:</b> AI System Engineer & Bias Mitigation Lead</p>
+        <p>
+            Identified and resolved model bias, performed feature scaling,
+            class imbalance handling, evaluation, and built the complete
+            Flask-based web platform with interactive UI/UX.
+        </p>
+        <p><b>Email:</b> shivam.workwithai@gmail.com</p>
+        <p><b>Phone:</b> +91-7068261278</p>
+        <button class="close-btn" onclick="closePopup('systemPopup')">Close</button>
+    </div>
+</div>
+
+<!-- Model Developer Popup -->
+<div class="popup" id="modelPopup">
+    <div class="popup-box">
+        <h2>Harsh Bhadauriya</h2>
+        <p><b>Role:</b> Machine Learning Model Developer</p>
+        <p>
+            Developed the initial Support Vector Machine (SVM) model
+            and core preprocessing logic for loan status prediction.
+        </p>
+        <p><b>Email:</b> bhadauriyaharsh5@gmail.com</p>
+        <p><b>Phone:</b> +91-9151279445</p>
+        <button class="close-btn" onclick="closePopup('modelPopup')">Close</button>
+    </div>
+</div>
+
+<script>
+    function openPopup(id) {
+        document.getElementById(id).style.display = "flex";
+    }
+    function closePopup(id) {
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+
+</body>
+</html>

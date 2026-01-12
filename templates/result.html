@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Loan Decision</title>
+
+<style>
+/* ================= RESET ================= */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif}
+
+/* ================= BODY ================= */
+body{
+    width:100%;
+    height:100vh;
+    background:#02090f;
+    overflow:hidden;
+    color:white;
+}
+
+/* ================= GRID BACKGROUND ================= */
+.bg-grid{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(rgba(0,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,.06) 1px, transparent 1px);
+    background-size:80px 80px;
+    animation:gridMove 40s linear infinite;
+    opacity:.35;
+}
+@keyframes gridMove{
+    from{background-position:0 0}
+    to{background-position:800px 800px}
+}
+
+/* ================= SCANNER ================= */
+.scanner{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0,255,255,.12),
+        transparent
+    );
+    animation:scan 6s linear infinite;
+}
+@keyframes scan{
+    from{transform:translateY(-100%)}
+    to{transform:translateY(100%)}
+}
+
+/* ================= MAIN ================= */
+.page{
+    position:relative;
+    z-index:10;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:30px;
+}
+
+/* ================= HEADER ================= */
+.header{
+    font-size:46px;
+    letter-spacing:2px;
+    background:linear-gradient(90deg,cyan,#00ff99);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* ================= DECISION CORE ================= */
+.core{
+    width:760px;
+    padding:50px;
+    border-radius:36px;
+    backdrop-filter:blur(26px);
+    background:rgba(255,255,255,.06);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:35px;
+    animation:enter 1s ease;
+}
+@keyframes enter{
+    from{opacity:0;transform:scale(.9)}
+    to{opacity:1;transform:scale(1)}
+}
+
+/* ================= LEFT ================= */
+.left{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:25px;
+}
+
+/* DECISION TEXT */
+.status{
+    font-size:34px;
+    font-weight:700;
+}
+.approved{color:#00ff99;text-shadow:0 0 25px #00ff99}
+.rejected{color:#ff4d4d;text-shadow:0 0 25px #ff4d4d}
+
+.desc{
+    font-size:16px;
+    line-height:1.7;
+    opacity:.9;
+}
+
+/* TIMELINE */
+.timeline{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+}
+.step{
+    text-align:center;
+    font-size:12px;
+    opacity:.8;
+}
+.step span{
+    display:block;
+    margin-top:6px;
+    color:cyan;
+}
+
+/* ================= RIGHT ================= */
+.right{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:25px;
+}
+
+/* CONFIDENCE RING */
+.ring{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:8px solid rgba(255,255,255,.08);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    font-weight:bold;
+    animation:pulse 2.5s infinite;
+}
+@keyframes pulse{
+    0%{box-shadow:0 0 20px cyan}
+    50%{box-shadow:0 0 45px cyan}
+    100%{box-shadow:0 0 20px cyan}
+}
+
+/* RISK BAR */
+.risk{
+    width:100%;
+}
+.risk-label{
+    font-size:13px;
+    margin-bottom:6px;
+}
+.risk-bar{
+    width:100%;
+    height:10px;
+    border-radius:6px;
+    background:rgba(255,255,255,.1);
+    overflow:hidden;
+}
+.risk-fill{
+    height:100%;
+    animation:fill 1.5s ease;
+}
+@keyframes fill{
+    from{width:0}
+    to{width:100%}
+}
+
+/* ================= BUTTONS ================= */
+.actions{
+    display:flex;
+    gap:25px;
+}
+.actions a button{
+    padding:14px 36px;
+    border-radius:30px;
+    border:1px solid cyan;
+    background:transparent;
+    color:cyan;
+    font-size:15px;
+    cursor:pointer;
+    transition:.35s;
+}
+.actions a button:hover{
+    background:cyan;
+    color:black;
+    box-shadow:0 0 30px cyan;
+    transform:scale(1.08);
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+<div class="scanner"></div>
+
+<div class="page">
+
+    <div class="header">AI Decision Engine</div>
+
+    {% if result == 1 %}
+    <!-- ================= APPROVED ================= -->
+    <div class="core">
+        <div class="left">
+            <div class="status approved">✔ LOAN APPROVED</div>
+            <div class="desc">
+                The AI system has completed multi-factor evaluation.
+                Income stability, repayment capacity and credit behaviour
+                fall within acceptable risk thresholds.
+            </div>
+
+            <div class="timeline">
+                <div class="step">Input<span>✔</span></div>
+                <div class="step">Analysis<span>✔</span></div>
+                <div class="step">Decision<span>✔</span></div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="ring" style="border-color:#00ff99;color:#00ff99">83%</div>
+
+            <div class="risk">
+                <div class="risk-label">Risk Level : LOW</div>
+                <div class="risk-bar">
+                    <div class="risk-fill" style="width:25%;background:#00ff99"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- ================= REJECTED ================= -->
+    <div class="core">
+        <div class="left">
+            <div class="status rejected">✖ LOAN REJECTED</div>
+            <div class="desc">
+                AI analysis detected elevated risk indicators.
+                Credit history, income consistency or liability
+                ratios exceed safe approval limits.
+            </div>
+
+            <div class="timeline">
+                <div class="step">Input<span>✔</span></div>
+                <div class="step">Analysis<span>✔</span></div>
+                <div class="step">Decision<span>✖</span></div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="ring" style="border-color:#ff4d4d;color:#ff4d4d">41%</div>
+
+            <div class="risk">
+                <div class="risk-label">Risk Level : HIGH</div>
+                <div class="risk-bar">
+                    <div class="risk-fill" style="width:80%;background:#ff4d4d"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="actions">
+        <a href="/predict"><button>New Prediction</button></a>
+        <a href="/"><button>Home</button></a>
+    </div>
+
+</div>
+
+</body>
+</html>

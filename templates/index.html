@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Status Prediction | AI System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+
+        /* ================= FULL SCREEN WRAPPER ================= */
+        .home-wrapper {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 60px 20px;
+        }
+
+        /* ================= BACKGROUND EFFECT ================= */
+        .bg-glow {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, cyan, transparent 70%);
+            filter: blur(80px);
+            animation: float 12s infinite alternate;
+            z-index: 0;
+        }
+
+        .bg-glow.one { top: 10%; left: 10%; }
+        .bg-glow.two { bottom: 10%; right: 10%; animation-delay: 2s; }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-80px); }
+        }
+
+        /* ================= HERO ================= */
+        .hero {
+            z-index: 2;
+            max-width: 900px;
+            text-align: center;
+            animation: fadeZoom 1s ease;
+        }
+
+        @keyframes fadeZoom {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .hero h1 {
+            font-size: 46px;
+            background: linear-gradient(90deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            margin-top: 10px;
+            font-size: 16px;
+            opacity: 0.85;
+        }
+
+        /* ================= BADGES ================= */
+        .badges {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            background: rgba(0,255,255,0.15);
+            border: 1px solid cyan;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px cyan; }
+            50% { box-shadow: 0 0 25px cyan; }
+            100% { box-shadow: 0 0 10px cyan; }
+        }
+
+        /* ================= NAV ================= */
+        nav {
+            margin-top: 30px;
+        }
+
+        nav a {
+            margin: 0 12px;
+            font-size: 14px;
+            color: #aaa;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: cyan;
+            text-shadow: 0 0 10px cyan;
+        }
+
+        /* ================= CTA ================= */
+        .cta {
+            margin-top: 35px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta button {
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(90deg, cyan, #00ff99);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .cta button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px cyan;
+        }
+
+        .cta .secondary {
+            background: transparent;
+            border: 1px solid cyan;
+            color: cyan;
+        }
+
+        /* ================= FEATURES ================= */
+        .features {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.07);
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            animation: fadeUp 1.2s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feature h3 {
+            color: cyan;
+            margin-bottom: 10px;
+        }
+
+        /* ================= STATS ================= */
+        .stats {
+            margin-top: 70px;
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat {
+            font-size: 18px;
+            background: rgba(0,255,255,0.15);
+            padding: 18px 30px;
+            border-radius: 30px;
+            border: 1px solid cyan;
+        }
+
+        /* ================= FOOT NOTE ================= */
+        .note {
+            margin-top: 60px;
+            font-size: 13px;
+            opacity: 0.75;
+            animation: fadePulse 2.5s infinite;
+        }
+
+        @keyframes fadePulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="home-wrapper">
+
+    <div class="bg-glow one"></div>
+    <div class="bg-glow two"></div>
+
+    <div class="hero">
+        <h1>Loan Status Prediction System</h1>
+        <p>Smart • Fair • Bias-Aware AI for Loan Decisions</p>
+
+        <div class="badges">
+            <div class="badge">Bias-Controlled Model</div>
+            <div class="badge">83% Accuracy</div>
+            <div class="badge">Real-Time Prediction</div>
+            <div class="badge">SVM Based AI</div>
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">Workflow</a>
+            <a href="/predict">Predict</a>
+            <a href="/contact">Team</a>
+        </nav>
+
+        <div class="cta">
+            <a href="/predict"><button>🚀 Start Prediction</button></a>
+            <a href="/about"><button class="secondary">🔍 How It Works</button></a>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features">
+        <div class="feature">
+            <h3>Fair Decision Making</h3>
+            <p>Bias reduction techniques ensure fair and balanced loan decisions.</p>
+        </div>
+        <div class="feature">
+            <h3>Explainable Workflow</h3>
+            <p>Users can understand how predictions are generated.</p>
+        </div>
+        <div class="feature">
+            <h3>Instant Results</h3>
+            <p>Real-time prediction using a trained ML pipeline.</p>
+        </div>
+        <div class="feature">
+            <h3>User Friendly UI</h3>
+            <p>Simple, interactive and responsive interface.</p>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+        <div class="stat">✔ Tested on Real Dataset</div>
+        <div class="stat">✔ Balanced Accuracy Model</div>
+        <div class="stat">✔ Industry-Ready Pipeline</div>
+    </div>
+
+    <div class="note">
+        Designed as an end-to-end AI system — not just a prediction model.
+    </div>
+
+</div>
+
+</body>
+</html>
